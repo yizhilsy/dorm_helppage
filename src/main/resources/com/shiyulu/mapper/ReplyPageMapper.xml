@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shiyulu.mapper.ReplyPageMapper">
+    <select id="listByMainPageId" resultType="com.shiyulu.pojo.ReplyPage">
+        select * from replypage where replypage.id in (select mp.reply_id from mp where main_id = #{id});
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.shiyulu.pojo.ReplyPage">
+        insert into replypage (username, name, content, reply_time)
+        values (#{username},#{name},#{content},#{replyTime})
+<!--        <selectKey keyProperty="id" resultType="Integer" order="AFTER">-->
+<!--            select LAST_INSERT_ID()-->
+<!--        </selectKey>-->
+    </insert>
+</mapper>
