@@ -14,9 +14,9 @@ public class AvatorServiceImpl implements AvatorService {
     @Override
     public Avator getAvatorById(String username) {
         Avator avator = avatorMapper.getAvatorById(username);
-        System.out.println("*******************");
-        System.out.println(avator);
-        System.out.println("*******************");
+//        System.out.println("*******************");
+//        System.out.println(avator);
+//        System.out.println("*******************");
         return avator;
     }
 }

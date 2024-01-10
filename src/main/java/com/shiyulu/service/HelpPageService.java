@@ -3,6 +3,7 @@ package com.shiyulu.service;
 import com.shiyulu.pojo.HelpPage;
 import com.shiyulu.pojo.PageBean;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -18,5 +19,7 @@ public interface HelpPageService {
     void update(HelpPage helpPage);
 
     PageBean page(Integer page, Integer pageSize, Integer typeId,
-                  LocalDateTime begin, LocalDateTime end);
+                  LocalDate begin, LocalDate end);
+
+    List<HelpPage> listByUsername(String username);
 }

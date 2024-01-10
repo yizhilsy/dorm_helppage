@@ -3,6 +3,7 @@ package com.shiyulu.mapper;
 import com.shiyulu.pojo.HelpPage;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,5 +21,7 @@ public interface HelpPageMapper {
 
     void update(HelpPage helpPage);
 
-    List<HelpPage> page(Integer typeId, LocalDateTime begin, LocalDateTime end);
+    List<HelpPage> page(Integer typeId, LocalDate begin, LocalDate end);
+
+    List<HelpPage> listByUsername(String username);
 }

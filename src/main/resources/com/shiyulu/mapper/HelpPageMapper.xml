@@ -4,7 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shiyulu.mapper.HelpPageMapper">
     <select id="list" resultType="com.shiyulu.pojo.HelpPage">
-        select * from mainpage
+        select mainpage.id,mainpage.username,user.nickname as name,mainpage.phone,mainpage.title,mainpage.content,mainpage.image,mainpage.type_id,mainpage.create_time,mainpage.update_time
+        from mainpage left join user on mainpage.username = user.username
     </select>
 
     <insert id="insert">
@@ -21,7 +22,9 @@
     </delete>
 
     <select id="getById" resultType="com.shiyulu.pojo.HelpPage">
-        select * from mainpage where id = #{id}
+        select mainpage.id,mainpage.username,user.nickname as name,mainpage.phone,mainpage.title,mainpage.content,mainpage.image,mainpage.type_id,mainpage.create_time,mainpage.update_time
+        from mainpage left join user on mainpage.username = user.username
+        where mainpage.id = #{id}
     </select>
 
     <update id="update">
@@ -57,17 +60,23 @@
     </update>
 
     <select id="page" resultType="com.shiyulu.pojo.HelpPage">
-        select * from mainpage
+        select mainpage.id,mainpage.username,user.nickname as name,mainpage.phone,mainpage.title,mainpage.content,mainpage.image,mainpage.type_id,mainpage.create_time,mainpage.update_time
+        from mainpage left join user on mainpage.username = user.username
         <where>
             <if test="typeId !=null ">
-                type_id = #{typeId}
+                mainpage.type_id = #{typeId}
             </if>
 
             <if test=" begin !=null and end !=null">
-                and create_time between #{begin} and #{end}
+                and mainpage.create_time between #{begin} and #{end}
             </if>
         </where>
-        order by update_time desc
+        order by mainpage.update_time desc
     </select>
 
+    <select id="listByUsername" resultType="com.shiyulu.pojo.HelpPage">
+        select mainpage.id,mainpage.username,user.nickname as name,mainpage.phone,mainpage.title,mainpage.content,mainpage.image,mainpage.type_id,mainpage.create_time,mainpage.update_time
+        from mainpage left join user on mainpage.username = user.username
+        where mainpage.username = #{username} order by mainpage.create_time asc
+    </select>
 </mapper>

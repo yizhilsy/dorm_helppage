@@ -12,6 +12,7 @@ import org.springframework.cglib.core.Local;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -43,8 +44,8 @@ public class HelpPageController {
     public Result page(@RequestParam(defaultValue = "1") Integer page,
                        @RequestParam(defaultValue = "10") Integer pageSize,
                        Integer typeId,
-                       @DateTimeFormat(pattern="yyyy-MM-dd") LocalDateTime begin,
-                       @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDateTime end){
+                       @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate begin,
+                       @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate end){
         log.info("分页查询，参数: {},{},{},{},{}",page,pageSize,typeId,begin,end);
         PageBean pageBean = helpPageService.page(page,pageSize,typeId,begin,end);
         return Result.success(pageBean);
@@ -87,5 +88,14 @@ public class HelpPageController {
 //        ans.put(helpPage,replyPageList);
 //        return Result.success(ans);
 //    }
+
+    //根据用户名查询自己发的帖子
+    @GetMapping("/mypage/{username}")
+    public Result listByUsername(@PathVariable String username){
+        log.info("根据用户名返回该用户发的所有帖子：username{}",username);
+        List<HelpPage> helpPageList = helpPageService.listByUsername(username);
+        return Result.success(helpPageList);
+    }
+
 
 }

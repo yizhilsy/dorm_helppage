@@ -9,6 +9,7 @@ import com.shiyulu.service.HelpPageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -47,7 +48,7 @@ public class HelpPageServiceImpl implements HelpPageService {
     }
 
     @Override
-    public PageBean page(Integer page, Integer pageSize, Integer typeId, LocalDateTime begin, LocalDateTime end) {
+    public PageBean page(Integer page, Integer pageSize, Integer typeId, LocalDate begin, LocalDate end) {
         //1. 设置分页参数
         PageHelper.startPage(page,pageSize);
         //2. 执行查询, 此时已经是分页查询结果的封装了
@@ -64,5 +65,10 @@ public class HelpPageServiceImpl implements HelpPageService {
         //3. 封装PageBean对象
         PageBean pageBean = new PageBean(p.getTotal(),p.getResult());
         return pageBean;
+    }
+
+    @Override
+    public List<HelpPage> listByUsername(String username) {
+        return helpPageMapper.listByUsername(username);
     }
 }
