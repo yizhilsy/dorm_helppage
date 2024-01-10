@@ -45,8 +45,7 @@ public class WaterController {
     ) {
         List<WaterOrder> WOlist = waterService.listWaterOrder(waterStationId, state);
 
-        //return ResultChen.success(WOlist);
-        return ResultChen.success();
+        return ResultChen.success(WOlist);
     }
 
     @PostMapping("/changestate")
