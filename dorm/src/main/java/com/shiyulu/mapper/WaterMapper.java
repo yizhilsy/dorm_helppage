@@ -1,5 +1,6 @@
 package com.shiyulu.mapper;
 
+import com.shiyulu.pojo.WaterBill;
 import com.shiyulu.pojo.WaterOrder;
 import com.shiyulu.pojo.WaterOrder;
 import org.apache.ibatis.annotations.Delete;
@@ -24,4 +25,9 @@ public interface WaterMapper {
 
     @Delete("delete from waterOrder where waterOrderId=#{waterOrderId} and waterOrderNumber=#{waterOrderNumber}")
     void cancel(WaterOrder waterOrder);
+
+    @Select("select dormNumber, waterStationId, sum(waterCount) as waterCount, sum(waterCount) * (select waterPrice from waterStation where waterStation.waterStationId = waterOrder.waterStationId) as totalPrice from waterOrder where waterOrderStatus='已完成' group by dormNumber, waterStationId")
+    List<WaterBill> monthlyBillGenerator();
+
+    void insertBills(List<WaterBill> waterBillList);
 }

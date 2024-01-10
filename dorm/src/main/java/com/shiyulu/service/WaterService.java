@@ -1,5 +1,6 @@
 package com.shiyulu.service;
 
+import com.shiyulu.pojo.WaterBill;
 import com.shiyulu.pojo.WaterOrder;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
@@ -14,4 +15,8 @@ public interface WaterService {
     List<WaterOrder> listWaterOrder(Integer waterStationId, Integer state);
 
     void cancel(WaterOrder waterOrder);
+
+    List<WaterBill> monthlyBillGenerator();
+
+    void insertBills(List<WaterBill> waterBillList);
 }

@@ -9,6 +9,12 @@
         insert into waterOrder (waterOrderNumber, dormNumber, studentId, waterOrderTime, waterDeliverTime, waterOrderStatus, waterStationId, waterCount)
         values (#{waterOrderNumber}, #{dormNumber}, #{studentId}, now(), #{waterDeliverTime}, #{waterOrderStatus}, #{waterStationId}, #{waterCount})
     </insert>
+    <insert id="insertBills">
+        insert into waterBill(waterBillNumber, dormNumber, waterStationId, waterCount, totalPrice, waterBillStatus) values
+        <foreach collection="waterBillList" item="bill" separator=",">
+            (#{bill.waterBillNumber},#{bill.dormNumber},#{bill.waterStationId},#{bill.waterCount},#{bill.totalPrice},#{bill.waterBillStatus})
+        </foreach>
+    </insert>
     <select id="listWaterOrder" resultType="com.shiyulu.pojo.WaterOrder">
         select * from waterOrder
         <where>

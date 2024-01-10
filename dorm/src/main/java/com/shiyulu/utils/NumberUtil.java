@@ -4,7 +4,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
 
-public class OrderNumberUtil {
+public class NumberUtil {
 /**
      * 生成短订单号
      * @return 短订单号
