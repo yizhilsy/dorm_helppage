@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shiyulu.mapper.WaterMapper">
+
+
+    <insert id="order">
+        insert into waterOrder (waterOrderNumber, dormNumber, studentId, waterOrderTime, waterDeliverTime, waterOrderStatus, waterStationId, waterCount)
+        values (#{waterOrderNumber}, #{dormNumber}, #{studentId}, now(), #{waterDeliverTime}, #{waterOrderStatus}, #{waterStationId}, #{waterCount})
+    </insert>
+    <select id="listWaterOrder" resultType="com.shiyulu.pojo.WaterOrder">
+        select * from waterOrder
+        <where>
+            <if test="waterStationId!=null">
+                and waterStationId = #{waterStationId}
+            </if>
+            <choose>
+                <when test="state==0">
+                    and waterOrderStatus = '未接收'
+                </when>
+                <when test="state==1">
+                    and waterOrderStatus = '运送中'
+                </when>
+            </choose>
+
+        </where>
+    </select>
+</mapper>
