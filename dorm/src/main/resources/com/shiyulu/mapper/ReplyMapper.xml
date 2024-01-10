@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shiyulu.mapper.ReplyMapper">
+    <update id="addReply">
+        UPDATE student_records
+        <set>
+            <if test="studentAppealReason != null">
+                student_appeal_reason = #{studentAppealReason},
+                status = '已申诉'
+            </if>
+        </set>
+        where student_number = #{studentNumber}
+    </update>
+</mapper>

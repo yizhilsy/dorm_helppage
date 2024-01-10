@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shiyulu.mapper.ProcessMapper">
+    <update id="process">
+        UPDATE student_records
+        <set>
+            monthly_score = monthly_score + (10 - daily_score),
+            daily_score = 10,
+            balcony = false,
+            rubbish = false,
+            desk = false,
+            floor = false,
+            quilt = false,
+            daily_penalty_image_url = null,
+            student_appeal_reason = null,
+            status = '已更正'
+        </set>
+        where student_number = #{studentNumber}
+    </update>
+
+    <update id="process2">
+        UPDATE student_records
+        <set>
+            student_appeal_reason = null,
+            status = '已拒绝'
+        </set>
+        where student_number = #{studentNumber}
+    </update>
+</mapper>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shiyulu.mapper.CheckMapper">
+    <update id="update">
+        UPDATE student_records
+        <set>
+            <if test="dailyScore != null">
+                daily_score = daily_score-#{dailyScore},
+                monthly_score = monthly_score + daily_score,
+            </if>
+            <if test=" balcony != null">
+                balcony = #{balcony},
+            </if>
+            <if test="username != null">
+                username = #{username},
+            </if>
+            <if test=" rubbish != null">
+                rubbish = #{rubbish},
+            </if>
+            <if test=" desk != null">
+                desk = #{desk},
+            </if>
+            <if test=" floor != null">
+                floor = #{floor},
+            </if>
+            <if test=" quilt != null">
+                quilt = #{quilt},
+            </if>
+            <if test="dailyPenaltyImageUrl != null">
+                daily_penalty_image_url = #{dailyPenaltyImageUrl},
+            </if>
+            <if test="checkerUsername != null">
+                checker_username = #{checkerUsername},
+            </if>
+                status = "已检查",
+        </set>
+        where student_number = #{studentNumber}
+    </update>
+
+    <update id="update1">
+        UPDATE student_records
+        <set>
+                daily_score = 10,
+                monthly_score = monthly_score + daily_score,
+                balcony = #{balcony},
+                rubbish = #{rubbish},
+                desk = #{desk},
+                floor = #{floor},
+                quilt = #{quilt},
+                daily_penalty_image_url = #{dailyPenaltyImageUrl},
+                status = "已检查",
+                username = #{username},
+
+        </set>
+        where student_number = #{studentNumber}
+    </update>
+
+    <select id="list1">
+        select * from student_records
+        <where>
+            <if test="studentNumber !=null ">
+                student_number = #{studentNumber},
+            </if>
+            <if test="dormitoryNumber !=null ">
+                dormitory_number = #{dormitoryNumber},
+            </if>
+            <if test="dailyScore !=null ">
+                daily_score = #{dailyScore},
+            </if>
+            <if test="monthlyScore !=null ">
+                monthly_score = #{monthlyScore}
+            </if>
+        </where>
+    order by id
+    </select>
+
+    <update id="resetDailyScoreAndStatus">
+        UPDATE student_records
+        SET daily_score = 10,
+            monthly_score = monthly_score,
+            balcony = false,
+            rubbish = false,
+            desk = false,
+            floor = false,
+            quilt = false,
+            daily_penalty_image_url = NULL,
+            student_appeal_reason = NULL,
+            status = '未查房'
+    </update>
+
+    <update id="initializeData">
+        UPDATE student_records
+        SET daily_score = 10,
+            monthly_score = 0,
+            balcony = false,
+            rubbish = false,
+            desk = false,
+            floor = false,
+            quilt = false,
+            daily_penalty_image_url = NULL,
+            student_appeal_reason = NULL,
+            status = '未查房'
+    </update>
+</mapper>
