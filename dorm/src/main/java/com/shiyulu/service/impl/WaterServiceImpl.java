@@ -2,9 +2,10 @@ package com.shiyulu.service.impl;
 
 
 import com.shiyulu.mapper.WaterMapper;
+import com.shiyulu.pojo.WaterBill;
 import com.shiyulu.pojo.WaterOrder;
 import com.shiyulu.service.WaterService;
-import com.shiyulu.utils.OrderNumberUtil;
+import com.shiyulu.utils.NumberUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ public class WaterServiceImpl implements WaterService {
     @Override
     public String order(WaterOrder waterOrder) throws NoSuchAlgorithmException {
 
-        String orderNumber = OrderNumberUtil.generateShortOrderNumber();
+        String orderNumber = NumberUtil.generateShortOrderNumber();
         waterOrder.setWaterOrderNumber(orderNumber);
         waterOrder.setWaterOrderStatus("未接收");
         waterMapper.order(waterOrder);
@@ -46,5 +47,16 @@ public class WaterServiceImpl implements WaterService {
     @Override
     public void cancel(WaterOrder waterOrder) {
         waterMapper.cancel(waterOrder);
+    }
+
+    @Override
+    public List<WaterBill> monthlyBillGenerator() {
+
+        return waterMapper.monthlyBillGenerator();
+    }
+
+    @Override
+    public void insertBills(List<WaterBill> waterBillList) {
+        waterMapper.insertBills(waterBillList);
     }
 }
