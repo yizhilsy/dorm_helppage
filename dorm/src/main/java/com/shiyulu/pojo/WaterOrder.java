@@ -28,7 +28,7 @@ public class WaterOrder {
     private LocalDateTime waterOrderTime;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime waterDeliverTime;
-    @OrderState(groups = Update.class)
+//    @OrderState(groups = Update.class)
     private String waterOrderStatus;
     @NotNull(groups = Add.class)
     private Integer waterStationId;

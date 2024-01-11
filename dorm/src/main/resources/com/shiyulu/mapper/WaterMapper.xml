@@ -6,11 +6,14 @@
 
 
     <insert id="order">
-        insert into waterOrder (waterOrderNumber, dormNumber, studentId, waterOrderTime, waterDeliverTime, waterOrderStatus, waterStationId, waterCount)
-        values (#{waterOrderNumber}, #{dormNumber}, #{studentId}, now(), #{waterDeliverTime}, #{waterOrderStatus}, #{waterStationId}, #{waterCount})
+        insert into waterOrder (waterOrderNumber, dormNumber, studentId, waterOrderTime, waterDeliverTime,
+                                waterOrderStatus, waterStationId, waterCount)
+        values (#{waterOrderNumber}, #{dormNumber}, #{studentId}, now(), #{waterDeliverTime}, #{waterOrderStatus},
+                #{waterStationId}, #{waterCount})
     </insert>
     <insert id="insertBills">
-        insert into waterBill(waterBillNumber, dormNumber, waterStationId, waterCount, totalPrice, waterBillStatus) values
+        insert into waterBill(waterBillNumber, dormNumber, waterStationId, waterCount, totalPrice, waterBillStatus)
+        values
         <foreach collection="waterBillList" item="bill" separator=",">
             (#{bill.waterBillNumber},#{bill.dormNumber},#{bill.waterStationId},#{bill.waterCount},#{bill.totalPrice},#{bill.waterBillStatus})
         </foreach>
@@ -21,6 +24,9 @@
             <if test="waterStationId!=null">
                 and waterStationId = #{waterStationId}
             </if>
+            <if test="today!=null">
+                and substring(waterDeliverTime, 1, 10) = substring(now(), 1, 10)
+            </if>
             <choose>
                 <when test="state==0">
                     and waterOrderStatus = '未接收'
@@ -28,8 +34,53 @@
                 <when test="state==1">
                     and waterOrderStatus = '运送中'
                 </when>
+                <when test="state==2">
+                    and waterOrderStatus = '已完成'
+                </when>
+                <when test="state==3">
+                    and waterOrderStatus = '已取消'
+                </when>
             </choose>
 
+
+        </where>
+    </select>
+    <select id="listWaterBill" resultType="com.shiyulu.pojo.WaterBill">
+        select * from waterBill
+        <where>
+            dormNumber = #{dormNumber}
+            <if test="status != null">
+                <choose>
+                    <when test="status==0">
+                        and waterBillStatus = '未缴费'
+                    </when>
+                    <when test="status==1">
+                        and waterBillStatus = '已缴费'
+                    </when>
+                </choose>
+            </if>
+        </where>
+    </select>
+    <select id="listWaterOrderByDorm" resultType="com.shiyulu.pojo.WaterOrder">
+        select * from waterOrder
+        <where>
+            dormNumber = #{dormNumber}
+            <if test="status != null">
+                <choose>
+                    <when test="status==0">
+                        and waterOrderStatus = '未接收'
+                    </when>
+                    <when test="status==1">
+                        and waterOrderStatus = '运送中'
+                    </when>
+                    <when test="status==2">
+                        and waterOrderStatus = '已完成'
+                    </when>
+                    <when test="status==3">
+                        and waterOrderStatus = '已取消'
+                    </when>
+                </choose>
+            </if>
         </where>
     </select>
 </mapper>
