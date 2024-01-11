@@ -15,4 +15,9 @@ mybatis:
     map-underscore-to-camel-case: true
 
 server:
-  port: 8080
+  port: 8445
+  ssl:
+    key-store: classpath:keystore.p12
+    key-store-password: chen1010200220
+    key-store-type: PKCS12
+    key-alias: aliyunSSL

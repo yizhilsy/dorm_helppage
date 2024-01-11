@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.shiyulu</groupId>
-    <artifactId>Dorm_HelpPage</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>Dorm_HelpPage</name>
-    <description>Dorm_HelpPage</description>
+    <artifactId>dorm</artifactId>
+    <version>0.1.1</version>
+    <name>dorm</name>
+    <description>dorm</description>
     <properties>
         <java.version>17</java.version>
     </properties>
