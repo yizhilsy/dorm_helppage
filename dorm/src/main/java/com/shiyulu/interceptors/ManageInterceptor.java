@@ -13,6 +13,11 @@ public class ManageInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception{
+
+        if (request.getMethod().equals("OPTIONS")) {
+            return true;
+        }
+
         //校验权限
         try {
             Map<String, Object> map = ThreadLocalUtil.get();

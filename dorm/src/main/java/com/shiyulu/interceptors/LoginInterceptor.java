@@ -21,6 +21,11 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+
+        if (request.getMethod().equals("OPTIONS")) {
+            return true;
+        }
+
         //令牌验证
         String token = request.getHeader("Authorization");
         //验证token
