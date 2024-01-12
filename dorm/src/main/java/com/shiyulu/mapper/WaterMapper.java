@@ -3,6 +3,7 @@ package com.shiyulu.mapper;
 import com.shiyulu.pojo.WaterBill;
 import com.shiyulu.pojo.WaterOrder;
 import com.shiyulu.pojo.WaterOrder;
+import com.shiyulu.pojo.WaterStation;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -57,5 +58,6 @@ public interface WaterMapper {
     @Select("select sum(waterCount * (select waterPrice from waterStation where waterStation.waterStationId = waterOrder.waterStationId )) from waterOrder where dormNumber=#{dormNumber} and month(waterOrderTime) = month(now()) and waterOrderStatus='已完成'")
     String getCurrentPrice(String dormNumber);
 
-
+    @Select("select * from waterStation where waterStationUsername = #{waterStationUsername}")
+    WaterStation findWaterStationByUsername(String waterStationUsername);
 }

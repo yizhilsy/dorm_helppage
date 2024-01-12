@@ -4,10 +4,7 @@ package com.shiyulu.service.impl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.shiyulu.mapper.WaterMapper;
-import com.shiyulu.pojo.MonthlyWaterData;
-import com.shiyulu.pojo.PageBeanChen;
-import com.shiyulu.pojo.WaterBill;
-import com.shiyulu.pojo.WaterOrder;
+import com.shiyulu.pojo.*;
 import com.shiyulu.service.WaterService;
 import com.shiyulu.utils.NumberUtil;
 import com.shiyulu.utils.ThreadLocalUtil;
@@ -122,5 +119,11 @@ public class WaterServiceImpl implements WaterService {
         monthlyWaterData.setCurrentPrice(CurrentPrice);
 
         return monthlyWaterData;
+    }
+
+    @Override
+    public WaterStation findWaterStationByUsername(String waterStationUsername) {
+
+        return waterMapper.findWaterStationByUsername(waterStationUsername);
     }
 }

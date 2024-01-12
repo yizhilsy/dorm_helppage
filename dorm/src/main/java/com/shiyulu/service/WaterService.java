@@ -1,9 +1,7 @@
 package com.shiyulu.service;
 
-import com.shiyulu.pojo.MonthlyWaterData;
-import com.shiyulu.pojo.PageBeanChen;
-import com.shiyulu.pojo.WaterBill;
-import com.shiyulu.pojo.WaterOrder;
+import com.shiyulu.pojo.*;
+
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
@@ -27,4 +25,6 @@ public interface WaterService {
     PageBeanChen<WaterBill> listBill(Integer pageNum, Integer pageSize, String dormNumber, Integer status);
 
     MonthlyWaterData generateMonthlyDataByDormNumber(String dormNumber);
+
+    WaterStation findWaterStationByUsername(String waterStationUsername);
 }

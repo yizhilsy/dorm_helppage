@@ -120,4 +120,13 @@ public class WaterController {
         return ResultChen.success(monthlyWaterData);
 
     }
+
+    @GetMapping("/waterstationInfo")
+    public ResultChen<WaterStation> waterStationInfo (@RequestParam String waterStationUsername) {
+
+        WaterStation waterStation = waterService.findWaterStationByUsername(waterStationUsername);
+
+        return ResultChen.success(waterStation);
+
+    }
 }
