@@ -4,12 +4,14 @@ package com.shiyulu.controller;
 import com.shiyulu.pojo.*;
 import com.shiyulu.service.StudentService;
 import com.shiyulu.service.WaterService;
+import com.shiyulu.utils.ThreadLocalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/water")
@@ -122,9 +124,11 @@ public class WaterController {
     }
 
     @GetMapping("/waterstationInfo")
-    public ResultChen<WaterStation> waterStationInfo (@RequestParam String waterStationUsername) {
+    public ResultChen<WaterStation> waterStationInfo () {
 
-        WaterStation waterStation = waterService.findWaterStationByUsername(waterStationUsername);
+        Map<String, Object> map= ThreadLocalUtil.get();
+
+        WaterStation waterStation = waterService.findWaterStationByUsername((String) map.get("username"));
 
         return ResultChen.success(waterStation);
 
