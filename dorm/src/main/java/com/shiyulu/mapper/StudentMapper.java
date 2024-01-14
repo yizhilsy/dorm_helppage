@@ -10,4 +10,7 @@ public interface StudentMapper {
 
     @Select("select * from student where studentId=#{studentId} and dormNumber=#{dormNumber}")
     Student findStudentByIdAndDorm(Integer studentId, String dormNumber);
+
+    @Select("select studentUserName from student where studentNumber=#{studentNumber}")
+    String getStudentUserNameByNumber(String studentNumber);
 }

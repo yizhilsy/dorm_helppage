@@ -15,12 +15,12 @@ public class ReplyController {
     @Autowired
     private ReplyService replyService;
 
-    @PutMapping("/add")
-    public Result addReply(@RequestBody CheckRecord chr) {
-        log.info("学生添加扣分申诉: {}", chr);
-        replyService.addReply(chr);
-        return Result.success();
-    }
+//    @PutMapping("/add")
+//    public Result addReply(@RequestBody CheckRecord chr) {
+//        log.info("学生添加扣分申诉: {}", chr);
+//        replyService.addReply(chr);
+//        return Result.success();
+//    }
 
 //    @GetMapping("/{id}")
 //    public Result getById(@PathVariable String id){
@@ -28,9 +28,9 @@ public class ReplyController {
 //        return Result.success(chr);
 //    }
 
-    @GetMapping
-    public Result getById(@RequestParam String id){
-        CheckRecord chr = replyService.getById(id);
-        return Result.success(chr);
-    }
+//    @GetMapping
+//    public Result getById(@RequestParam String id){
+//        CheckRecord chr = replyService.getById(id);
+//        return Result.success(chr);
+//    }
 }

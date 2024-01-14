@@ -1,35 +1,53 @@
 package com.shiyulu.service;
 
-import com.shiyulu.pojo.CheckRecord;
-import com.shiyulu.pojo.PageBean;
+import com.shiyulu.pojo.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface CheckService {
-    /**
-     * 根据ID查询学生
-     * @param id
-     * @return
-     */
-    CheckRecord getById(Integer id);
+    void add(CheckReceived checkReceived);
 
-    /**
-     * 更新学生
-     * @param chr
-     */
-    void update(CheckRecord chr);
+    Check findCheckByTimeAndNumber(LocalDateTime checkTime, String studentNumber);
 
-    PageBean page(Integer page, Integer pageSize, String studentNumber, String dormitoryNumber, Integer dailyScore, Integer monthlyScore);
+    PageBeanChen<DailyScoreBoardItem> dailyScoreBoard(Integer pageNum, Integer pageSize, LocalDateTime date);
 
-    List<CheckRecord> list();
+    PageBeanChen<Check> checkList(Integer pageNum, Integer pageSize, String studentNumber);
 
-    void update1(CheckRecord chr);
+    void appeal(Appeal appeal);
 
-    void resetDailyScoreAndStatus();
+    Check findCheckById(Integer checkId);
 
-    List<CheckRecord> listtop();
+    PageBeanChen<Check> appeakList(Integer pageNum, Integer pageSize, String checkerUserName);
 
-    List<CheckRecord> listbottom();
+    void appealVerifyYes(Check check);
 
-    void initializeData();
+    void appealVerifyNo(Check check);
+
+    PageBeanChen<Check> appeakStatus(Integer pageNum, Integer pageSize, String studentNumber);
+
+    List<DailyScoreBoardItem> rankTop();
+
+    List<DailyScoreBoardItem> rankBottom();
+
+
+//    CheckRecord getById(Integer id);
+//
+//    void update(CheckRecord chr);
+//
+//    PageBean page(Integer page, Integer pageSize, String studentNumber, String dormitoryNumber, Integer dailyScore);
+//
+//    List<CheckRecord> list();
+//
+//    void update1(CheckRecord chr);
+//
+//    void resetDailyScoreAndStatus();
+//
+//    List<CheckRecord> listtop();
+//
+//    List<CheckRecord> listbottom();
+//
+//    void initializeData();
+
+
 }
