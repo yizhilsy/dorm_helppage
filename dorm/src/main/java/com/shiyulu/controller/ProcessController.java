@@ -26,28 +26,28 @@ public class ProcessController {
 //        return Result.success(pageBean);
 //    }
 
-    @GetMapping("/getAll")
-    public Result list(){
-        List<CheckRecord> processList =  processService.list();
-        return Result.success(processList);
-    }
-
-    @PutMapping
-    public Result process(@RequestBody CheckRecord chr){
-        processService.process(chr);
-        return Result.success();
-    }
-
-    @GetMapping("/img")
-    public Result getimg(@RequestBody CheckRecord chr){
-        String img =  processService.getimg(chr);
-        return Result.success(img);
-    }
-
-    @PutMapping("/dis")
-    public Result process2(@RequestBody CheckRecord chr){
-        processService.process2(chr);
-        return Result.success();
-    }
+//    @GetMapping("/getAll")
+//    public Result list(){
+//        List<CheckRecord> processList =  processService.list();
+//        return Result.success(processList);
+//    }
+//
+//    @PutMapping
+//    public Result process(@RequestBody CheckRecord chr){
+//        processService.process(chr);
+//        return Result.success();
+//    }
+//
+//    @GetMapping("/img")
+//    public Result getimg(@RequestBody CheckRecord chr){
+//        String img =  processService.getimg(chr);
+//        return Result.success(img);
+//    }
+//
+//    @PutMapping("/dis")
+//    public Result process2(@RequestBody CheckRecord chr){
+//        processService.process2(chr);
+//        return Result.success();
+//    }
 
 }

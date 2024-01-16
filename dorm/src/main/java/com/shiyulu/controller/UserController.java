@@ -1,8 +1,11 @@
 package com.shiyulu.controller;
 
+import com.shiyulu.pojo.ResultChen;
 import com.shiyulu.pojo.ResultWang;
+import com.shiyulu.pojo.Student;
 import com.shiyulu.pojo.User;
 import com.shiyulu.service.ManagerService;
+import com.shiyulu.service.StudentService;
 import com.shiyulu.service.UserService;
 import com.shiyulu.utils.JwtUtil;
 import com.shiyulu.utils.Md5Util;
@@ -34,6 +37,8 @@ public class UserController {
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
+    @Autowired
+    private StudentService studentService;
     //注册
     @PostMapping("/register")
     public ResultWang register(@Pattern(regexp = "^\\S{5,16}$") String username, @Pattern(regexp = "^\\S{5,16}$") String password) {
@@ -147,4 +152,12 @@ public class UserController {
         return ResultWang.success();
     }
 
+    @GetMapping("/getStudentInfo")
+    public ResultChen getStudentInfo(@RequestParam String studentUserName) {
+        Student student = studentService.getStudentInfo(studentUserName);
+        if (student == null) {
+            return ResultChen.error("该学生不存在");
+        }
+        return ResultChen.success(student);
+    }
 }

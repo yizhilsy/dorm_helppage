@@ -27,4 +27,12 @@ public interface WaterService {
     MonthlyWaterData generateMonthlyDataByDormNumber(String dormNumber);
 
     WaterStation findWaterStationByUsername(String waterStationUsername);
+
+    Integer countFinishedByWaterStationId(Integer waterStationId);
+
+    Integer countDeliveringByWaterStationId(Integer waterStationId);
+
+    Integer countUnconfirmedByWaterStationId(Integer waterStationId);
+
+    Integer countCanceledByWaterStationId(Integer waterStationId);
 }

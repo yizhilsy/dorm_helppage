@@ -19,4 +19,16 @@ public class StudentServiceImpl implements StudentService {
 
         return studentMapper.findStudentByIdAndDorm(studentId, dormNumber);
     }
+
+    @Override
+    public String getStudentUserNameByNumber(String studentNumber) {
+
+        return studentMapper.getStudentUserNameByNumber(studentNumber);
+    }
+
+    @Override
+    public Student getStudentInfo(String studentUserName) {
+
+        return studentMapper.getStudentInfo(studentUserName);
+    }
 }

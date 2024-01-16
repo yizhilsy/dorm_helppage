@@ -133,4 +133,24 @@ public class WaterController {
         return ResultChen.success(waterStation);
 
     }
+
+    @GetMapping("/waterstationMonthlyData")
+    public ResultChen waterstationMonthlyData (@RequestParam Integer waterStationId) {
+
+        WaterStationMonthlyData waterStationMonthlyData = new WaterStationMonthlyData();
+
+        Integer finished = waterService.countFinishedByWaterStationId(waterStationId);
+        Integer delivering = waterService.countDeliveringByWaterStationId(waterStationId);
+        Integer unconfirmed = waterService.countUnconfirmedByWaterStationId(waterStationId);
+        Integer canceled = waterService.countCanceledByWaterStationId(waterStationId);
+
+        waterStationMonthlyData.setWaterStationId(waterStationId);
+
+        waterStationMonthlyData.setFinished(finished == null ? 0 : finished);
+        waterStationMonthlyData.setDelivering(delivering == null ? 0 : delivering);
+        waterStationMonthlyData.setUnconfirmed(unconfirmed == null ? 0 : unconfirmed);
+        waterStationMonthlyData.setCanceled(canceled == null ? 0 : canceled);
+
+        return ResultChen.success(waterStationMonthlyData);
+    }
 }

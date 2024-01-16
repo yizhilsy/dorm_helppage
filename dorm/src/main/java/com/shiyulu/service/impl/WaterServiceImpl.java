@@ -126,4 +126,28 @@ public class WaterServiceImpl implements WaterService {
 
         return waterMapper.findWaterStationByUsername(waterStationUsername);
     }
+
+    @Override
+    public Integer countFinishedByWaterStationId(Integer waterStationId) {
+
+        return waterMapper.countFinishedByWaterStationId(waterStationId);
+    }
+
+    @Override
+    public Integer countDeliveringByWaterStationId(Integer waterStationId) {
+
+        return waterMapper.countDeliveringByWaterStationId(waterStationId);
+    }
+
+    @Override
+    public Integer countUnconfirmedByWaterStationId(Integer waterStationId) {
+
+        return waterMapper.countUnconfirmedByWaterStationId(waterStationId);
+    }
+
+    @Override
+    public Integer countCanceledByWaterStationId(Integer waterStationId) {
+
+        return waterMapper.countCanceledByWaterStationId(waterStationId);
+    }
 }

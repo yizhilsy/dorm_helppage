@@ -60,4 +60,16 @@ public interface WaterMapper {
 
     @Select("select * from waterStation where waterStationUsername = #{waterStationUsername}")
     WaterStation findWaterStationByUsername(String waterStationUsername);
+
+    @Select("select sum(waterCount) from waterOrder where substr(waterOrderTime, 1, 7) = substr(now(), 1, 7) and waterStationId=#{waterStationId} and waterOrderStatus='已完成'")
+    Integer countFinishedByWaterStationId(Integer waterStationId);
+
+    @Select("select sum(waterCount) from waterOrder where substr(waterOrderTime, 1, 7) = substr(now(), 1, 7) and waterStationId=#{waterStationId} and waterOrderStatus='运送中'")
+    Integer countDeliveringByWaterStationId(Integer waterStationId);
+
+    @Select("select sum(waterCount) from waterOrder where substr(waterOrderTime, 1, 7) = substr(now(), 1, 7) and waterStationId=#{waterStationId} and waterOrderStatus='未接收'")
+    Integer countUnconfirmedByWaterStationId(Integer waterStationId);
+
+    @Select("select sum(waterCount) from waterOrder where substr(waterOrderTime, 1, 7) = substr(now(), 1, 7) and waterStationId=#{waterStationId} and waterOrderStatus='已取消'")
+    Integer countCanceledByWaterStationId(Integer waterStationId);
 }
