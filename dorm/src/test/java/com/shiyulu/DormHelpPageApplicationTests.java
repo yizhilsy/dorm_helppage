@@ -1,5 +1,6 @@
 package com.shiyulu;
 
+import com.shiyulu.mapper.WaterMapper;
 import com.shiyulu.pojo.WaterBill;
 import com.shiyulu.service.WaterService;
 import com.shiyulu.utils.NumberUtil;
@@ -15,6 +16,9 @@ import java.util.List;
 class DormHelpPageApplicationTests {
     @Autowired
     private WaterService waterService;
+
+    @Autowired
+    private WaterMapper waterMapper;
     @Test
     void contextLoads() throws NoSuchAlgorithmException {
         List<WaterBill> waterBillList = new ArrayList<>();
@@ -28,6 +32,24 @@ class DormHelpPageApplicationTests {
         }
 
         waterService.insertBills(waterBillList);
+    }
+
+    @Test
+    void test() {
+//        Integer waterStationId = 1;
+//
+//        Integer finished = waterService.countFinishedByWaterStationId(waterStationId);
+//        Integer delivering = waterService.countDeliveringByWaterStationId(waterStationId);
+//        Integer unconfirmed = waterService.countUnconfirmedByWaterStationId(waterStationId);
+//        Integer canceled = waterService.countCanceledByWaterStationId(waterStationId);
+//
+//
+//        System.out.println(finished);
+//        System.out.println(delivering);
+//        System.out.println(unconfirmed);
+//        System.out.println(canceled);
+
+        System.out.println(waterMapper.countUnconfirmedByWaterStationId(1));
     }
 
 }
