@@ -3,131 +3,138 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shiyulu.mapper.CheckMapper">
-<!--    <update id="update">-->
-<!--&lt;!&ndash;        UPDATE student_records&ndash;&gt;-->
-<!--&lt;!&ndash;        <set>&ndash;&gt;-->
-<!--&lt;!&ndash;            <if test="dailyScore != null">&ndash;&gt;-->
-<!--&lt;!&ndash;                daily_score = daily_score-#{dailyScore},&ndash;&gt;-->
-<!--&lt;!&ndash;                monthly_score = monthly_score + daily_score,&ndash;&gt;-->
-<!--&lt;!&ndash;            </if>&ndash;&gt;-->
-<!--&lt;!&ndash;            <if test=" balcony != null">&ndash;&gt;-->
-<!--&lt;!&ndash;                balcony = #{balcony},&ndash;&gt;-->
-<!--&lt;!&ndash;            </if>&ndash;&gt;-->
-<!--&lt;!&ndash;            <if test="username != null">&ndash;&gt;-->
-<!--&lt;!&ndash;                username = #{username},&ndash;&gt;-->
-<!--&lt;!&ndash;            </if>&ndash;&gt;-->
-<!--&lt;!&ndash;            <if test=" rubbish != null">&ndash;&gt;-->
-<!--&lt;!&ndash;                rubbish = #{rubbish},&ndash;&gt;-->
-<!--&lt;!&ndash;            </if>&ndash;&gt;-->
-<!--&lt;!&ndash;            <if test=" desk != null">&ndash;&gt;-->
-<!--&lt;!&ndash;                desk = #{desk},&ndash;&gt;-->
-<!--&lt;!&ndash;            </if>&ndash;&gt;-->
-<!--&lt;!&ndash;            <if test=" floor != null">&ndash;&gt;-->
-<!--&lt;!&ndash;                floor = #{floor},&ndash;&gt;-->
-<!--&lt;!&ndash;            </if>&ndash;&gt;-->
-<!--&lt;!&ndash;            <if test=" quilt != null">&ndash;&gt;-->
-<!--&lt;!&ndash;                quilt = #{quilt},&ndash;&gt;-->
-<!--&lt;!&ndash;            </if>&ndash;&gt;-->
-<!--&lt;!&ndash;            <if test="dailyPenaltyImageUrl != null">&ndash;&gt;-->
-<!--&lt;!&ndash;                daily_penalty_image_url = #{dailyPenaltyImageUrl},&ndash;&gt;-->
-<!--&lt;!&ndash;            </if>&ndash;&gt;-->
-<!--&lt;!&ndash;            <if test="checkerUsername != null">&ndash;&gt;-->
-<!--&lt;!&ndash;                checker_username = #{checkerUsername},&ndash;&gt;-->
-<!--&lt;!&ndash;            </if>&ndash;&gt;-->
-<!--&lt;!&ndash;                status = "已检查",&ndash;&gt;-->
-<!--&lt;!&ndash;        </set>&ndash;&gt;-->
-<!--&lt;!&ndash;        where student_number = #{studentNumber}&ndash;&gt;-->
-<!--        update recordHistory(waterBillNumber, dormNumber, waterStationId, waterCount, totalPrice, waterBillStatus)-->
-<!--        values-->
-<!--        <foreach collection="waterBillList" item="bill" separator=",">-->
-<!--            (#{bill.waterBillNumber},#{bill.dormNumber},#{bill.waterStationId},#{bill.waterCount},#{bill.totalPrice},#{bill.waterBillStatus})-->
-<!--        </foreach>-->
-<!--    </update>-->
+    <!--    <update id="update">-->
+    <!--&lt;!&ndash;        UPDATE student_records&ndash;&gt;-->
+    <!--&lt;!&ndash;        <set>&ndash;&gt;-->
+    <!--&lt;!&ndash;            <if test="dailyScore != null">&ndash;&gt;-->
+    <!--&lt;!&ndash;                daily_score = daily_score-#{dailyScore},&ndash;&gt;-->
+    <!--&lt;!&ndash;                monthly_score = monthly_score + daily_score,&ndash;&gt;-->
+    <!--&lt;!&ndash;            </if>&ndash;&gt;-->
+    <!--&lt;!&ndash;            <if test=" balcony != null">&ndash;&gt;-->
+    <!--&lt;!&ndash;                balcony = #{balcony},&ndash;&gt;-->
+    <!--&lt;!&ndash;            </if>&ndash;&gt;-->
+    <!--&lt;!&ndash;            <if test="username != null">&ndash;&gt;-->
+    <!--&lt;!&ndash;                username = #{username},&ndash;&gt;-->
+    <!--&lt;!&ndash;            </if>&ndash;&gt;-->
+    <!--&lt;!&ndash;            <if test=" rubbish != null">&ndash;&gt;-->
+    <!--&lt;!&ndash;                rubbish = #{rubbish},&ndash;&gt;-->
+    <!--&lt;!&ndash;            </if>&ndash;&gt;-->
+    <!--&lt;!&ndash;            <if test=" desk != null">&ndash;&gt;-->
+    <!--&lt;!&ndash;                desk = #{desk},&ndash;&gt;-->
+    <!--&lt;!&ndash;            </if>&ndash;&gt;-->
+    <!--&lt;!&ndash;            <if test=" floor != null">&ndash;&gt;-->
+    <!--&lt;!&ndash;                floor = #{floor},&ndash;&gt;-->
+    <!--&lt;!&ndash;            </if>&ndash;&gt;-->
+    <!--&lt;!&ndash;            <if test=" quilt != null">&ndash;&gt;-->
+    <!--&lt;!&ndash;                quilt = #{quilt},&ndash;&gt;-->
+    <!--&lt;!&ndash;            </if>&ndash;&gt;-->
+    <!--&lt;!&ndash;            <if test="dailyPenaltyImageUrl != null">&ndash;&gt;-->
+    <!--&lt;!&ndash;                daily_penalty_image_url = #{dailyPenaltyImageUrl},&ndash;&gt;-->
+    <!--&lt;!&ndash;            </if>&ndash;&gt;-->
+    <!--&lt;!&ndash;            <if test="checkerUsername != null">&ndash;&gt;-->
+    <!--&lt;!&ndash;                checker_username = #{checkerUsername},&ndash;&gt;-->
+    <!--&lt;!&ndash;            </if>&ndash;&gt;-->
+    <!--&lt;!&ndash;                status = "已检查",&ndash;&gt;-->
+    <!--&lt;!&ndash;        </set>&ndash;&gt;-->
+    <!--&lt;!&ndash;        where student_number = #{studentNumber}&ndash;&gt;-->
+    <!--        update recordHistory(waterBillNumber, dormNumber, waterStationId, waterCount, totalPrice, waterBillStatus)-->
+    <!--        values-->
+    <!--        <foreach collection="waterBillList" item="bill" separator=",">-->
+    <!--            (#{bill.waterBillNumber},#{bill.dormNumber},#{bill.waterStationId},#{bill.waterCount},#{bill.totalPrice},#{bill.waterBillStatus})-->
+    <!--        </foreach>-->
+    <!--    </update>-->
 
-<!--    <update id="update1">-->
-<!--        UPDATE student_records-->
-<!--        <set>-->
-<!--                dailyScore = 10,-->
-<!--                monthlyScore = monthlyScore + dailyScore,-->
-<!--                balcony = #{balcony},-->
-<!--                rubbish = #{rubbish},-->
-<!--                desk = #{desk},-->
-<!--                floor = #{floor},-->
-<!--                quilt = #{quilt},-->
-<!--                dailyPenaltyImageUrl = #{dailyPenaltyImageUrl},-->
-<!--                status = "已检查",-->
-<!--                username = #{username},-->
+    <!--    <update id="update1">-->
+    <!--        UPDATE student_records-->
+    <!--        <set>-->
+    <!--                dailyScore = 10,-->
+    <!--                monthlyScore = monthlyScore + dailyScore,-->
+    <!--                balcony = #{balcony},-->
+    <!--                rubbish = #{rubbish},-->
+    <!--                desk = #{desk},-->
+    <!--                floor = #{floor},-->
+    <!--                quilt = #{quilt},-->
+    <!--                dailyPenaltyImageUrl = #{dailyPenaltyImageUrl},-->
+    <!--                status = "已检查",-->
+    <!--                username = #{username},-->
 
-<!--        </set>-->
-<!--        where studentNumber = #{studentNumber}-->
-<!--    </update>-->
+    <!--        </set>-->
+    <!--        where studentNumber = #{studentNumber}-->
+    <!--    </update>-->
 
-<!--    <select id="list1" resultType="com.shiyulu.pojo.CheckRecord">-->
-<!--        select * from student_records-->
-<!--        <where>-->
-<!--            <if test="studentNumber !=null ">-->
-<!--                studentNumber = #{studentNumber},-->
-<!--            </if>-->
-<!--            <if test="dormitoryNumber !=null ">-->
-<!--                dormitoryNumber = #{dormitoryNumber},-->
-<!--            </if>-->
-<!--            <if test="dailyScore !=null ">-->
-<!--                dailyScore = #{dailyScore},-->
-<!--            </if>-->
-<!--        </where>-->
-<!--    order by id-->
-<!--    </select>-->
+    <!--    <select id="list1" resultType="com.shiyulu.pojo.CheckRecord">-->
+    <!--        select * from student_records-->
+    <!--        <where>-->
+    <!--            <if test="studentNumber !=null ">-->
+    <!--                studentNumber = #{studentNumber},-->
+    <!--            </if>-->
+    <!--            <if test="dormitoryNumber !=null ">-->
+    <!--                dormitoryNumber = #{dormitoryNumber},-->
+    <!--            </if>-->
+    <!--            <if test="dailyScore !=null ">-->
+    <!--                dailyScore = #{dailyScore},-->
+    <!--            </if>-->
+    <!--        </where>-->
+    <!--    order by id-->
+    <!--    </select>-->
 
-<!--    <update id="resetDailyScoreAndStatus">-->
-<!--        UPDATE student_records-->
-<!--        SET dailyScore = 10,-->
-<!--            monthlyScore = monthlyScore,-->
-<!--            balcony = false,-->
-<!--            rubbish = false,-->
-<!--            desk = false,-->
-<!--            floor = false,-->
-<!--            quilt = false,-->
-<!--            dailyPenaltyImageUrl = NULL,-->
-<!--            studentAppealReason = NULL,-->
-<!--            status = '未查房'-->
-<!--    </update>-->
+    <!--    <update id="resetDailyScoreAndStatus">-->
+    <!--        UPDATE student_records-->
+    <!--        SET dailyScore = 10,-->
+    <!--            monthlyScore = monthlyScore,-->
+    <!--            balcony = false,-->
+    <!--            rubbish = false,-->
+    <!--            desk = false,-->
+    <!--            floor = false,-->
+    <!--            quilt = false,-->
+    <!--            dailyPenaltyImageUrl = NULL,-->
+    <!--            studentAppealReason = NULL,-->
+    <!--            status = '未查房'-->
+    <!--    </update>-->
 
-<!--    <update id="initializeData">-->
-<!--        UPDATE student_records-->
-<!--        SET dailyScore = 10,-->
-<!--            monthlyScore = 0,-->
-<!--            balcony = false,-->
-<!--            rubbish = false,-->
-<!--            desk = false,-->
-<!--            floor = false,-->
-<!--            quilt = false,-->
-<!--            dailyPenaltyImageUrl = NULL,-->
-<!--            studentAppealReason = NULL,-->
-<!--            status = '未查房'-->
-<!--    </update>-->
-<!--    <select id="list1" resultType="com.shiyulu.pojo.CheckRecord">-->
-<!--        -->
-<!--    </select>-->
+    <!--    <update id="initializeData">-->
+    <!--        UPDATE student_records-->
+    <!--        SET dailyScore = 10,-->
+    <!--            monthlyScore = 0,-->
+    <!--            balcony = false,-->
+    <!--            rubbish = false,-->
+    <!--            desk = false,-->
+    <!--            floor = false,-->
+    <!--            quilt = false,-->
+    <!--            dailyPenaltyImageUrl = NULL,-->
+    <!--            studentAppealReason = NULL,-->
+    <!--            status = '未查房'-->
+    <!--    </update>-->
+    <!--    <select id="list1" resultType="com.shiyulu.pojo.CheckRecord">-->
+    <!--        -->
+    <!--    </select>-->
 
 
     <insert id="add">
-        insert into studentCheck(studentUserName, studentNumber, checkTime, checkReason, checkImg, checkValue, checker, appealReason, appealImg, status)
+        insert into studentCheck(studentUserName, studentNumber, checkTime, checkReason, checkImg, checkValue, checker,
+        appealReason, appealImg, status)
         values
 
         <foreach collection="checkList" item="check" separator=",">
-            (#{check.studentUserName}, #{check.studentNumber}, #{check.checkTime}, #{check.checkReason}, #{check.checkImg}, #{check.checkValue}, #{check.checker}, #{check.appealReason}, #{check.appealImg}, #{check.status})
+            (#{check.studentUserName}, #{check.studentNumber}, #{check.checkTime}, #{check.checkReason},
+            #{check.checkImg}, #{check.checkValue}, #{check.checker}, #{check.appealReason}, #{check.appealImg},
+            #{check.status})
         </foreach>
     </insert>
     <select id="dailyScoreBoard" resultType="com.shiyulu.pojo.DailyScoreBoardItem">
         select s.studentNumber,
                s.dormNumber,
-               COALESCE(sc.scoreDec, 10)                                                                       dailyScore,
+               COALESCE(sc.scoreDec, 10)                                     dailyScore,
                day(#{date}) * 10 - coalesce((select sum(sck.checkValue)
-                                                           from studentCheck sck
-                                                           where substr(checkTime, 1, 7) = substr(#{date}, 1, 7)
-                                                             and sck.studentNumber = s.studentNumber
-                                                           group by sck.studentNumber), 0)                     monthlyScore,
-               coalesce((select '已查房' from studentCheck where studentNumber = s.studentNumber and substr(checkTime, 1, 10) = substr(#{date}, 1, 10) limit 1), '未查房') status
+                                             from studentCheck sck
+                                             where substr(checkTime, 1, 7) = substr(#{date}, 1, 7)
+                                               and sck.studentNumber = s.studentNumber
+                                             group by sck.studentNumber), 0) monthlyScore,
+               coalesce((select '已查房'
+                         from studentCheck
+                         where studentNumber = s.studentNumber
+                           and substr(checkTime, 1, 10) = substr(#{date}, 1, 10)
+                         limit 1), '未查房')                                    status
         from student s
                  left join (select studentNumber, 10 - sum(checkValue) scoreDec
                             from studentCheck
@@ -137,35 +144,47 @@
     <select id="rankTop" resultType="com.shiyulu.pojo.DailyScoreBoardItem">
         select s.studentNumber,
                s.dormNumber,
-               COALESCE(sc.scoreDec, 10)                                                                       dailyScore,
+               COALESCE(sc.scoreDec, 10)                                   dailyScore,
                day(now()) * 10 - coalesce((select sum(sck.checkValue)
-                                             from studentCheck sck
-                                             where substr(checkTime, 1, 7) = substr(now(), 1, 7)
-                                               and sck.studentNumber = s.studentNumber
-                                             group by sck.studentNumber), 0)                     monthlyScore,
-               coalesce((select '已查房' from studentCheck where studentNumber = s.studentNumber and substr(checkTime, 1, 10) = substr(now(), 1, 10) limit 1), '未查房') status
+                                           from studentCheck sck
+                                           where substr(checkTime, 1, 7) = substr(now(), 1, 7)
+                                             and sck.studentNumber = s.studentNumber
+                                           group by sck.studentNumber), 0) monthlyScore,
+               coalesce((select '已查房'
+                         from studentCheck
+                         where studentNumber = s.studentNumber
+                           and substr(checkTime, 1, 10) = substr(now(), 1, 10)
+                         limit 1), '未查房')                                  status
         from student s
                  left join (select studentNumber, 10 - sum(checkValue) scoreDec
                             from studentCheck
                             where substr(checkTime, 1, 10) = substr(now(), 1, 10)
-                            group by studentNumber) sc on s.studentNumber = sc.studentNumber order by monthlyScore desc limit 8
+                            group by studentNumber) sc on s.studentNumber = sc.studentNumber
+        order by monthlyScore desc
+        limit 8
 
     </select>
     <select id="rankBottom" resultType="com.shiyulu.pojo.DailyScoreBoardItem">
         select s.studentNumber,
                s.dormNumber,
-               COALESCE(sc.scoreDec, 10)                                                                       dailyScore,
+               COALESCE(sc.scoreDec, 10)                                   dailyScore,
                day(now()) * 10 - coalesce((select sum(sck.checkValue)
                                            from studentCheck sck
                                            where substr(checkTime, 1, 7) = substr(now(), 1, 7)
                                              and sck.studentNumber = s.studentNumber
-                                           group by sck.studentNumber), 0)                     monthlyScore,
-               coalesce((select '已查房' from studentCheck where studentNumber = s.studentNumber and substr(checkTime, 1, 10) = substr(now(), 1, 10) limit 1), '未查房') status
+                                           group by sck.studentNumber), 0) monthlyScore,
+               coalesce((select '已查房'
+                         from studentCheck
+                         where studentNumber = s.studentNumber
+                           and substr(checkTime, 1, 10) = substr(now(), 1, 10)
+                         limit 1), '未查房')                                  status
         from student s
                  left join (select studentNumber, 10 - sum(checkValue) scoreDec
                             from studentCheck
                             where substr(checkTime, 1, 10) = substr(now(), 1, 10)
-                            group by studentNumber) sc on s.studentNumber = sc.studentNumber order by monthlyScore asc limit 8
+                            group by studentNumber) sc on s.studentNumber = sc.studentNumber
+        order by monthlyScore asc
+        limit 8
 
     </select>
 </mapper>

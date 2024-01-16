@@ -52,6 +52,9 @@ public class CheckServiceImpl implements CheckService {
             checkList.add(new Check(null, studentUserName, checkReceived.getStudentNumber(), checkReceived.getCheckTime(), "被子", "".equals(checkReceived.getDailyPenaltyImageUrlForQuilt()) ? null : checkReceived.getDailyPenaltyImageUrlForQuilt(), checkReceived.getQuilt(), checker, null, null, "已扣分"));
         }
 
+        if (checkList.size() == 0) {
+            checkList.add(new Check(null, studentUserName, checkReceived.getStudentNumber(), checkReceived.getCheckTime(), "不扣分", null, 0, checker, null, null, "优秀"));
+        }
         checkMapper.add(checkList);
     }
 
