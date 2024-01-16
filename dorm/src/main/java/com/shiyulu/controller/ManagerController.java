@@ -1,5 +1,6 @@
 package com.shiyulu.controller;//package com.shiyulu.controller;
 
+import com.shiyulu.anno.RequireRole;
 import com.shiyulu.pojo.ResultWang;
 import com.shiyulu.pojo.User;
 import com.shiyulu.service.ManagerService;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
+import static com.shiyulu.utils.Constants.*;
+
 @RestController
 @RequestMapping("/manager")
 @Validated
@@ -24,6 +27,7 @@ public class ManagerController {
     @Autowired
     private UserService userService;
 
+    @RequireRole({MANAGER})
     @PostMapping("/addUser")
     public ResultWang addUser(@Pattern(regexp = "^\\S{5,16}$") String username, Integer role) {
         User u = userService.findByUserNmae(username);
@@ -42,6 +46,7 @@ public class ManagerController {
         }
     }
 
+    @RequireRole({MANAGER})
     @PostMapping("/resetPwd")
     public ResultWang resetUserPwd(@Pattern(regexp = "^\\S{5,16}$") String username){
         //检查该用户是否存在
