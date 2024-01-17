@@ -43,6 +43,7 @@ public class UserController {
     @PostMapping("/register")
     public ResultWang register(@Pattern(regexp = "^\\S{5,16}$") String username, @Pattern(regexp = "^\\S{5,16}$") String password) {
 
+
         //查询用户
         User u = userService.findByUserNmae(username);
         if (u == null) {

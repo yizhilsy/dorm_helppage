@@ -150,4 +150,30 @@ public class WaterServiceImpl implements WaterService {
 
         return waterMapper.countCanceledByWaterStationId(waterStationId);
     }
+
+    @Override
+    public PageBeanChen<WaterStation> listWaterStation(Integer pageNum, Integer pageSize) {
+
+        PageBeanChen<WaterStation> pb = new PageBeanChen<>();
+        PageHelper.startPage(pageNum, pageSize);
+
+        List<WaterStation> wl = waterMapper.listWaterStation();
+        Page<WaterStation> p = (Page<WaterStation>) wl;
+
+        pb.setTotal(p.getTotal());
+        pb.setItems(p.getResult());
+        return pb;
+    }
+
+    @Override
+    public WaterBill findBill(WaterBill waterBill) {
+
+        return waterMapper.findBill(waterBill);
+    }
+
+    @Override
+    public void pay(WaterBill waterBill) {
+
+        waterMapper.pay(waterBill);
+    }
 }

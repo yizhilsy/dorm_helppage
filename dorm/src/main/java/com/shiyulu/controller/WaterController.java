@@ -4,12 +4,14 @@ package com.shiyulu.controller;
 import com.shiyulu.pojo.*;
 import com.shiyulu.service.StudentService;
 import com.shiyulu.service.WaterService;
+import com.shiyulu.utils.NumberUtil;
 import com.shiyulu.utils.ThreadLocalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -153,4 +155,48 @@ public class WaterController {
 
         return ResultChen.success(waterStationMonthlyData);
     }
+
+    @GetMapping("/liststations")
+    public ResultChen<PageBeanChen<WaterStation>> listStations (
+            Integer pageNum,
+            Integer pageSize
+    ) {
+        PageBeanChen<WaterStation> waterStationList = waterService.listWaterStation(pageNum, pageSize);
+        return ResultChen.success(waterStationList);
+    }
+
+    @PostMapping("/waterbillGenerate")
+    public ResultChen waterbillGenerate () throws NoSuchAlgorithmException {
+        System.out.println("开始生成月度账单");
+        List<WaterBill> waterBillList = new ArrayList<>();
+        waterBillList = waterService.monthlyBillGenerator();
+
+        //生成账单编号
+        for (WaterBill waterBill : waterBillList) {
+            waterBill.setWaterBillNumber(NumberUtil.generateShortOrderNumber());
+            waterBill.setWaterBillStatus("未缴费");
+        }
+
+        waterService.insertBills(waterBillList);
+
+        return ResultChen.success();
+    }
+
+    @PostMapping("/pay")
+    public ResultChen pay (@RequestBody WaterBill waterBill) {
+
+        WaterBill wb = waterService.findBill(waterBill);
+        if (wb == null) {
+            return ResultChen.error("找不到指定账单");
+        }
+
+        if ("已缴费".equals(wb.getWaterBillStatus())) {
+            return ResultChen.error("此账单已缴费");
+        }
+
+        waterService.pay(waterBill);
+
+        return ResultChen.success();
+    }
+
 }

@@ -19,7 +19,7 @@ public interface CheckMapper {
 
     List<DailyScoreBoardItem> dailyScoreBoard(LocalDateTime date);
 
-    @Select("select * from studentCheck where studentNumber = #{studentNumber}")
+    @Select("select * from studentCheck where studentNumber = #{studentNumber} and checkTime > now() - interval 7 day")
     List<Check> checkList(String studentNumber);
 
     @Update("update studentCheck set appealReason=#{appealReason}, appealImg=#{appealImg}, status='申诉中' where id = #{checkId}")

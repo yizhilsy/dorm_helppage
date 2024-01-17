@@ -35,4 +35,10 @@ public interface WaterService {
     Integer countUnconfirmedByWaterStationId(Integer waterStationId);
 
     Integer countCanceledByWaterStationId(Integer waterStationId);
+
+    PageBeanChen<WaterStation> listWaterStation(Integer pageNum, Integer pageSize);
+
+    WaterBill findBill(WaterBill waterBill);
+
+    void pay(WaterBill waterBill);
 }

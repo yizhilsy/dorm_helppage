@@ -72,4 +72,13 @@ public interface WaterMapper {
 
     @Select("select sum(waterCount) from waterOrder where substr(waterOrderTime, 1, 7) = substr(now(), 1, 7) and waterStationId=#{waterStationId} and waterOrderStatus='已取消'")
     Integer countCanceledByWaterStationId(Integer waterStationId);
+
+    @Select("select * from waterStation")
+    List<WaterStation> listWaterStation();
+
+    @Select("select * from waterBill where waterBillId=#{waterBillId} and waterBillNumber=#{waterBillNumber} and dormNumber=#{dormNumber} and waterStationId=#{waterStationId} and totalPrice=#{totalPrice} and waterCount=#{waterCount}")
+    WaterBill findBill(WaterBill waterBill);
+
+    @Update("update waterBill set waterBillStatus='已支付' where waterBillId=#{waterBillId}")
+    void pay(WaterBill waterBill);
 }
