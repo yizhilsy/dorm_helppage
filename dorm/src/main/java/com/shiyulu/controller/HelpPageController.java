@@ -97,5 +97,44 @@ public class HelpPageController {
         return Result.success(helpPageList);
     }
 
+    // 查询主帖号为id的帖子的点赞数
+    @GetMapping("/like/{id}")
+    public Result getLikeNumById(@PathVariable Integer id){
+        log.info("根据主帖号查询该帖的点赞数，id：{}",id);
+        Integer likeNum = helpPageService.getLikeNumById(id);
+        return Result.success(likeNum);
+    }
+
+    // 查询谁喜欢了主帖号为id的帖子，返回用户id的集合
+    @GetMapping("/like/who/{id}")
+    public Result getLikeUserById(@PathVariable Integer id){
+        log.info("根据主帖号查询喜欢该帖的用户的用户id，id：{}",id);
+        List<Integer> likeUsers = helpPageService.getLikeUserById(id);
+        return Result.success(likeUsers);
+    }
+
+    // 用户号为u_id的用户喜欢了帖子号为id的帖子
+    @GetMapping("/addlike/{id}/{u_id}")
+    public Result addLike(@PathVariable Integer id,@PathVariable Integer u_id){
+        log.info("用户id为：{}对主贴号为：{}的主贴添加喜欢",u_id,id);
+        helpPageService.addLike(id,u_id);
+        return Result.success();
+    }
+
+    // 用户号为u_id的用户取消喜欢了帖子号为id的帖子
+    @GetMapping("/cancellike/{id}/{u_id}")
+    public Result cancelLike(@PathVariable Integer id, @PathVariable Integer u_id){
+        log.info("用户id为：{}对主贴号为：{}的主贴取消喜欢",u_id,id);
+        helpPageService.cancelLike(id,u_id);
+        return Result.success();
+    }
+
+    // 查询点赞数最高的几个帖子
+    @GetMapping("/hotest5")
+    public Result hotest5(){
+        log.info("查询点赞数最高的5个帖子");
+        List<HelpPage> hotesthelppages = helpPageService.hotest5();
+        return Result.success(hotesthelppages);
+    }
 
 }

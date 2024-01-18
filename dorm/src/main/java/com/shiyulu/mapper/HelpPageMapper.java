@@ -24,4 +24,24 @@ public interface HelpPageMapper {
     List<HelpPage> page(Integer typeId, LocalDate begin, LocalDate end);
 
     List<HelpPage> listByUsername(String username);
+
+    Integer getLikeNumById(Integer id);
+
+    List<Integer> getLikeUsersById(Integer id);
+
+    void addLike(Integer id);
+
+    void addLikeUser(Integer id, Integer u_id);
+
+    void cancelLike(Integer id);
+
+    void cancelLikeUser(Integer id, Integer u_id);
+
+    void initLikeNum(Integer id,Integer initNum);
+
+    void dropLikeNum(List<Integer> ids);
+
+    void dropLikeUser(List<Integer> ids);
+
+    List<HelpPage> hotest5();
 }

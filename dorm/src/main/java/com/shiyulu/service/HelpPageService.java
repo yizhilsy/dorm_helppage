@@ -22,4 +22,14 @@ public interface HelpPageService {
                   LocalDate begin, LocalDate end);
 
     List<HelpPage> listByUsername(String username);
+
+    Integer getLikeNumById(Integer id);
+
+    List<Integer> getLikeUserById(Integer id);
+
+    void addLike(Integer id, Integer u_id);
+
+    void cancelLike(Integer id, Integer u_id);
+
+    List<HelpPage> hotest5();
 }
