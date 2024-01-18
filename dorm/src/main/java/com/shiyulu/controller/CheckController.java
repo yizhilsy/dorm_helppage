@@ -23,6 +23,8 @@ public class CheckController {
     @Autowired
     private CheckService checkService;
 
+    @Autowired
+    private StudentService studentService;
     //查询学生的全部情况
 
 //    @GetMapping("/getAll")
@@ -224,5 +226,14 @@ public class CheckController {
         List<DailyScoreBoardItem> pd= checkService.rankBottom();
 
         return ResultChen.success(pd);
+    }
+
+    @GetMapping("/getStudentByDorm")
+    public ResultChen<List<Student>> getStudentByDorm (@RequestParam String dormNumber) {
+        List<Student> stuList = studentService.getStudentByDorm(dormNumber);
+
+        return ResultChen.success(stuList);
+
+
     }
 }

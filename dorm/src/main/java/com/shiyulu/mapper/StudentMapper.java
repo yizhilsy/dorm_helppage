@@ -5,6 +5,8 @@ import com.shiyulu.pojo.Student;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 @Mapper
 public interface StudentMapper {
 
@@ -16,4 +18,7 @@ public interface StudentMapper {
 
     @Select("select * from student where studentUserName=#{studentUserName}")
     Student getStudentInfo(String studentUserName);
+
+    @Select("select * from student where dormNumber = #{dormNumber}")
+    List<Student> getStudentByDorm(String dormNumber);
 }
