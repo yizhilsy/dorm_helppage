@@ -176,4 +176,9 @@ public class WaterServiceImpl implements WaterService {
 
         waterMapper.pay(waterBill);
     }
+
+    @Override
+    public void updateOrderStatus(WaterBill waterBill) {
+        waterMapper.updateOrderStatus(waterBill);
+    }
 }

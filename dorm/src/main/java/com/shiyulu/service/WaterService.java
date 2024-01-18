@@ -41,4 +41,6 @@ public interface WaterService {
     WaterBill findBill(WaterBill waterBill);
 
     void pay(WaterBill waterBill);
+
+    void updateOrderStatus(WaterBill waterBill);
 }

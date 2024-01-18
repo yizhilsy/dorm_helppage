@@ -27,7 +27,7 @@ public interface WaterMapper {
     @Update("update waterOrder set waterOrderStatus='已取消' where waterOrderId=#{waterOrderId} and waterOrderNumber=#{waterOrderNumber}")
     void cancel(WaterOrder waterOrder);
 
-    @Select("select dormNumber, waterStationId, sum(waterCount) as waterCount, sum(waterCount) * (select waterPrice from waterStation where waterStation.waterStationId = waterOrder.waterStationId) as totalPrice from waterOrder where waterOrderStatus='已完成' group by dormNumber, waterStationId")
+    @Select("select dormNumber, waterStationId, sum(waterCount) as waterCount, sum(waterCount) * (select waterPrice from waterStation where waterStation.waterStationId = waterOrder.waterStationId) as totalPrice from waterOrder where waterOrderStatus='未缴费' and substr(waterOrderTime, 1, 7) = substr(now(), 1, 7) group by dormNumber, waterStationId")
     List<WaterBill> monthlyBillGenerator();
 
     void insertBills(List<WaterBill> waterBillList);
@@ -37,31 +37,31 @@ public interface WaterMapper {
 
     List<WaterBill> listWaterBill(String dormNumber, Integer status);
 
-    @Select("select count(*) from waterOrder where dormNumber=#{dormNumber} and month(waterOrderTime) = month(now())")
+    @Select("select count(*) from waterOrder where dormNumber=#{dormNumber} and substr(waterOrderTime, 1, 7) = substr(now(), 1, 7)")
     Integer countTotalOrdered(String dormNumber);
 
-    @Select("select sum(waterCount) from waterOrder where dormNumber=#{dormNumber} and month(waterOrderTime) = month(now())")
+    @Select("select sum(waterCount) from waterOrder where dormNumber=#{dormNumber} and substr(waterOrderTime, 1, 7) = substr(now(), 1, 7)")
     Integer countTotalWaterCount(String dormNumber);
 
-    @Select("select count(*) from waterOrder where dormNumber=#{dormNumber} and waterOrderStatus='未接收' and month(waterOrderTime) = month(now())")
+    @Select("select count(*) from waterOrder where dormNumber=#{dormNumber} and waterOrderStatus='未接收' and substr(waterOrderTime, 1, 7) = substr(now(), 1, 7)")
     Integer countUnconfirmed(String dormNumber);
 
-    @Select("select count(*) from waterOrder where dormNumber=#{dormNumber} and waterOrderStatus='运送中' and month(waterOrderTime) = month(now())")
+    @Select("select count(*) from waterOrder where dormNumber=#{dormNumber} and waterOrderStatus='运送中' and substr(waterOrderTime, 1, 7) = substr(now(), 1, 7)")
     Integer countDelivering(String dormNumber);
 
-    @Select("select count(*) from waterOrder where dormNumber=#{dormNumber} and waterOrderStatus='已取消' and month(waterOrderTime) = month(now())")
+    @Select("select count(*) from waterOrder where dormNumber=#{dormNumber} and waterOrderStatus='已取消' and substr(waterOrderTime, 1, 7) = substr(now(), 1, 7)")
     Integer countCanceled(String dormNumber);
 
-    @Select("select count(*) from waterOrder where dormNumber=#{dormNumber} and waterOrderStatus='已完成' and month(waterOrderTime) = month(now())")
+    @Select("select count(*) from waterOrder where dormNumber=#{dormNumber} and (waterOrderStatus='未缴费' or waterOrderStatus='已支付') and substr(waterOrderTime, 1, 7) = substr(now(), 1, 7)")
     Integer countFinished(String dormNumber);
 
-    @Select("select sum(waterCount * (select waterPrice from waterStation where waterStation.waterStationId = waterOrder.waterStationId )) from waterOrder where dormNumber=#{dormNumber} and month(waterOrderTime) = month(now()) and waterOrderStatus='已完成'")
+    @Select("select sum(waterCount * (select waterPrice from waterStation where waterStation.waterStationId = waterOrder.waterStationId )) from waterOrder where dormNumber=#{dormNumber} and substr(waterOrderTime, 1, 7) = substr(now(), 1, 7) and waterOrderStatus='未缴费'")
     String getCurrentPrice(String dormNumber);
 
     @Select("select * from waterStation where waterStationUsername = #{waterStationUsername}")
     WaterStation findWaterStationByUsername(String waterStationUsername);
 
-    @Select("select sum(waterCount) from waterOrder where substr(waterOrderTime, 1, 7) = substr(now(), 1, 7) and waterStationId=#{waterStationId} and waterOrderStatus='已完成'")
+    @Select("select sum(waterCount) from waterOrder where substr(waterOrderTime, 1, 7) = substr(now(), 1, 7) and waterStationId=#{waterStationId} and (waterOrderStatus='未缴费' or waterOrderStatus='已支付')")
     Integer countFinishedByWaterStationId(Integer waterStationId);
 
     @Select("select sum(waterCount) from waterOrder where substr(waterOrderTime, 1, 7) = substr(now(), 1, 7) and waterStationId=#{waterStationId} and waterOrderStatus='运送中'")
@@ -81,4 +81,7 @@ public interface WaterMapper {
 
     @Update("update waterBill set waterBillStatus='已支付' where waterBillId=#{waterBillId}")
     void pay(WaterBill waterBill);
+
+    @Update("update waterOrder set waterOrderStatus='已支付' where dormNumber = #{dormNumber} and waterStationId = #{waterStationId}")
+    void updateOrderStatus(WaterBill waterBill);
 }

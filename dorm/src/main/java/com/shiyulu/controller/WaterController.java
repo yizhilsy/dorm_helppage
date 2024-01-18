@@ -63,7 +63,7 @@ public class WaterController {
         }
 
         if ("未接收".equals(WO.getWaterOrderStatus())) waterOrder.setWaterOrderStatus("运送中");
-        else if ("运送中".equals(WO.getWaterOrderStatus())) waterOrder.setWaterOrderStatus("已完成");
+        else if ("运送中".equals(WO.getWaterOrderStatus())) waterOrder.setWaterOrderStatus("未缴费");
         else {
             return ResultChen.error("订单状态错误");
         }
@@ -171,12 +171,14 @@ public class WaterController {
         List<WaterBill> waterBillList = new ArrayList<>();
         waterBillList = waterService.monthlyBillGenerator();
 
+
         //生成账单编号
         for (WaterBill waterBill : waterBillList) {
             waterBill.setWaterBillNumber(NumberUtil.generateShortOrderNumber());
             waterBill.setWaterBillStatus("未缴费");
         }
 
+        System.out.println(waterBillList);
         waterService.insertBills(waterBillList);
 
         return ResultChen.success();
@@ -195,6 +197,8 @@ public class WaterController {
         }
 
         waterService.pay(waterBill);
+
+        waterService.updateOrderStatus(waterBill);
 
         return ResultChen.success();
     }
