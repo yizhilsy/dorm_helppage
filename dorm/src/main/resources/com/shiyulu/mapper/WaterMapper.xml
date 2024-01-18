@@ -35,7 +35,7 @@
                     and waterOrderStatus = '运送中'
                 </when>
                 <when test="state==2">
-                    and waterOrderStatus = '已完成'
+                    and (waterOrderStatus = '未缴费' or waterOrderStatus = '已支付')
                 </when>
                 <when test="state==3">
                     and waterOrderStatus = '已取消'
