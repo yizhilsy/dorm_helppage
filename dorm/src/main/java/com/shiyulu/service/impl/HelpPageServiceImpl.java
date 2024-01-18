@@ -29,11 +29,18 @@ public class HelpPageServiceImpl implements HelpPageService {
         helpPage.setCreateTime(LocalDateTime.now());
         helpPage.setUpdateTime(LocalDateTime.now());
         helpPageMapper.insert(helpPage);
+        //初始化likeNumTable中的表项
+        Integer initNum = 0;
+        helpPageMapper.initLikeNum(helpPage.getId(),initNum);
     }
 
     @Override
     public void delete(List<Integer> ids) {
         helpPageMapper.delete(ids);
+        //drop likeNumTable中的数据
+        helpPageMapper.dropLikeNum(ids);
+        //drop likeUserTable中的数据
+        helpPageMapper.dropLikeUser(ids);
     }
 
     @Override
@@ -70,5 +77,35 @@ public class HelpPageServiceImpl implements HelpPageService {
     @Override
     public List<HelpPage> listByUsername(String username) {
         return helpPageMapper.listByUsername(username);
+    }
+
+    @Override
+    public Integer getLikeNumById(Integer id) {
+        Integer likeNum = helpPageMapper.getLikeNumById(id);
+        System.out.println(likeNum);
+        return likeNum;
+    }
+
+    @Override
+    public List<Integer> getLikeUserById(Integer id) {
+        List<Integer> likeUsers = helpPageMapper.getLikeUsersById(id);
+        return likeUsers;
+    }
+
+    @Override
+    public void addLike(Integer id, Integer u_id) {
+        helpPageMapper.addLike(id);
+        helpPageMapper.addLikeUser(id,u_id);
+    }
+
+    @Override
+    public void cancelLike(Integer id, Integer u_id) {
+        helpPageMapper.cancelLike(id);
+        helpPageMapper.cancelLikeUser(id,u_id);
+    }
+
+    @Override
+    public List<HelpPage> hotest5() {
+        return helpPageMapper.hotest5();
     }
 }

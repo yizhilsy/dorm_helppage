@@ -8,7 +8,7 @@
         from mainpage left join user on mainpage.username = user.username
     </select>
 
-    <insert id="insert">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.shiyulu.pojo.HelpPage">
         insert into mainpage
         (username, name, phone, title, content, image, type_id, create_time, update_time) values
         (#{username},#{name},#{phone},#{title},#{content},#{image},#{typeId},#{createTime},#{updateTime})
@@ -79,4 +79,56 @@
         from mainpage left join user on mainpage.username = user.username
         where mainpage.username = #{username} order by mainpage.create_time asc
     </select>
+
+    <select id="getLikeNumById" resultType="integer">
+        select likeNumTable.likeNum from likeNumTable where likeNumTable.main_id = #{id};
+    </select>
+
+    <select id="getLikeUsersById" resultType="integer">
+        select likeUserTable.user_id from likeUserTable where likeUserTable.main_id = #{id}
+    </select>
+
+    <update id="addLike">
+        update likeNumTable set likeNumTable.likeNum = likeNumTable.likeNum + 1
+        where likeNumTable.main_id = #{id}
+    </update>
+
+    <insert id="addLikeUser">
+        insert into likeUserTable (main_id,user_id) values (#{id},#{u_id})
+    </insert>
+
+    <update id="cancelLike">
+        update likeNumTable set likeNumTable.likeNum = likeNumTable.likeNum - 1
+        where likeNumTable.main_id = #{id}
+    </update>
+
+    <delete id="cancelLikeUser">
+        delete from likeUserTable where likeUserTable.main_id = #{id} and likeUserTable.user_id = #{u_id}
+    </delete>
+
+    <insert id="initLikeNum">
+        insert into likeNumTable (main_id,likeNum) values (#{id},#{initNum})
+    </insert>
+
+    <delete id="dropLikeNum">
+        delete from likeNumTable where likeNumTable.main_id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="dropLikeUser">
+        delete from likeUserTable where likeUserTable.main_id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="hotest5" resultType="com.shiyulu.pojo.HelpPage">
+        select mainpage.id,mainpage.username,user.nickname as name,mainpage.phone,mainpage.title,mainpage.content,mainpage.image,mainpage.type_id,mainpage.create_time,mainpage.update_time
+        from mainpage left join likeNumTable on mainpage.id = likeNumTable.main_id
+                      left join user on mainpage.username = user.username
+        order by likeNumTable.likeNum desc, mainpage.create_time desc limit 5
+    </select>
+
 </mapper>
