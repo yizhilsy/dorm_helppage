@@ -1,5 +1,6 @@
 package com.shiyulu.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ public class Check {
     private Integer id;
     private String studentUserName;
     private String studentNumber;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime checkTime;
     private String checkReason;
     private String checkImg;
