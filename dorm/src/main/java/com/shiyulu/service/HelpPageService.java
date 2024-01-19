@@ -32,4 +32,7 @@ public interface HelpPageService {
     void cancelLike(Integer id, Integer u_id);
 
     List<HelpPage> hotest5();
+
+    PageBean myLikePages(Integer page, Integer pageSize, Integer typeId,
+                         LocalDate begin, LocalDate end, Integer uid);
 }

@@ -44,4 +44,6 @@ public interface HelpPageMapper {
     void dropLikeUser(List<Integer> ids);
 
     List<HelpPage> hotest5();
+
+    List<HelpPage> myLikePages(Integer typeId, LocalDate begin, LocalDate end, Integer uid);
 }
