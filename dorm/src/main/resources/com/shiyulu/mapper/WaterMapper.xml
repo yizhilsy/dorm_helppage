@@ -46,20 +46,22 @@
         </where>
     </select>
     <select id="listWaterBill" resultType="com.shiyulu.pojo.WaterBill">
-        select * from waterBill
+        select waterBillId, waterBillNumber, dormNumber, waterBillStatus, waterBill.waterStationId, waterStationName , waterCount, totalPrice from waterBill, waterStation
         <where>
-            dormNumber = #{dormNumber}
+            waterBill.waterStationId = waterStation.waterStationId
+            and dormNumber = #{dormNumber}
             <if test="status != null">
                 <choose>
                     <when test="status==0">
                         and waterBillStatus = '未缴费'
                     </when>
                     <when test="status==1">
-                        and waterBillStatus = '已缴费'
+                        and waterBillStatus = '已支付'
                     </when>
                 </choose>
             </if>
         </where>
+
     </select>
     <select id="listWaterOrderByDorm" resultType="com.shiyulu.pojo.WaterOrder">
         select * from waterOrder

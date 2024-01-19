@@ -20,6 +20,8 @@ public class WaterBill {
     private String waterBillStatus;
     @NotNull
     private Integer waterStationId;
+    @NotEmpty
+    private String waterStationName;
     @NotNull
     private Double totalPrice;
     @NotNull

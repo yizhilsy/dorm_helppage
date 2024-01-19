@@ -203,4 +203,15 @@ public class WaterController {
         return ResultChen.success();
     }
 
+    @GetMapping("/getOrderDetail")
+    public ResultChen<WaterOrder> getOrderDetail (@RequestParam Integer waterOrderId, @RequestParam String waterOrderNumber) {
+
+        WaterOrder w = waterService.getOrderDetail(waterOrderId, waterOrderNumber);
+
+        if (w == null) {
+            return ResultChen.error("找不到订单");
+        }
+        return ResultChen.success(w);
+
+    }
 }

@@ -181,4 +181,10 @@ public class WaterServiceImpl implements WaterService {
     public void updateOrderStatus(WaterBill waterBill) {
         waterMapper.updateOrderStatus(waterBill);
     }
+
+    @Override
+    public WaterOrder getOrderDetail(Integer waterOrderId, String waterOrderNumber) {
+
+        return waterMapper.getOrderDetail(waterOrderId, waterOrderNumber);
+    }
 }

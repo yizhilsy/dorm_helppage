@@ -84,4 +84,7 @@ public interface WaterMapper {
 
     @Update("update waterOrder set waterOrderStatus='已支付' where dormNumber = #{dormNumber} and waterStationId = #{waterStationId}")
     void updateOrderStatus(WaterBill waterBill);
+
+    @Select("select * from waterOrder where waterOrderId = #{waterOrderId} and waterOrderNumber = #{waterOrderNumber}")
+    WaterOrder getOrderDetail(Integer waterOrderId, String waterOrderNumber);
 }

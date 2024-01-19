@@ -43,4 +43,6 @@ public interface WaterService {
     void pay(WaterBill waterBill);
 
     void updateOrderStatus(WaterBill waterBill);
+
+    WaterOrder getOrderDetail(Integer waterOrderId, String waterOrderNumber);
 }
