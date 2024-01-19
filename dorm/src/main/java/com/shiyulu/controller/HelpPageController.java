@@ -129,12 +129,24 @@ public class HelpPageController {
         return Result.success();
     }
 
-    // 查询点赞数最高的几个帖子
+    // 查询点赞数最高的5个帖子
     @GetMapping("/hotest5")
     public Result hotest5(){
         log.info("查询点赞数最高的5个帖子");
         List<HelpPage> hotesthelppages = helpPageService.hotest5();
         return Result.success(hotesthelppages);
+    }
+
+    @GetMapping("/mylike/{uid}")
+    public Result myLikePages(@RequestParam(defaultValue = "1") Integer page,
+                              @RequestParam(defaultValue = "10") Integer pageSize,
+                              Integer typeId,
+                              @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate begin,
+                              @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate end,
+                              @PathVariable Integer uid){
+        log.info("查询用户id为:{}的用户喜欢的帖子",uid);
+        PageBean pageBean = helpPageService.myLikePages(page,pageSize,typeId,begin,end,uid);
+        return Result.success(pageBean);
     }
 
 }

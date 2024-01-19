@@ -108,4 +108,16 @@ public class HelpPageServiceImpl implements HelpPageService {
     public List<HelpPage> hotest5() {
         return helpPageMapper.hotest5();
     }
+
+    @Override
+    public PageBean myLikePages(Integer page, Integer pageSize, Integer typeId, LocalDate begin, LocalDate end, Integer uid) {
+        //1. 设置分页参数
+        PageHelper.startPage(page,pageSize);
+        //2. 执行查询, 此时已经是分页查询结果的封装了
+        List<HelpPage> helpPageList = helpPageMapper.myLikePages(typeId,begin,end,uid);
+        Page<HelpPage> p = (Page<HelpPage>) helpPageList;
+        //3. 封装PageBean对象
+        PageBean pageBean = new PageBean(p.getTotal(),p.getResult());
+        return pageBean;
+    }
 }

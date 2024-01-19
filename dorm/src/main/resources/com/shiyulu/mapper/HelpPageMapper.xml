@@ -131,4 +131,20 @@
         order by likeNumTable.likeNum desc, mainpage.create_time desc limit 5
     </select>
 
+    <select id="myLikePages" resultType="com.shiyulu.pojo.HelpPage">
+        select mainpage.id,mainpage.username,user.nickname as name,mainpage.phone,mainpage.title,mainpage.content,mainpage.image,mainpage.type_id,mainpage.create_time,mainpage.update_time
+        from likeUserTable left join mainpage on likeUserTable.main_id = mainpage.id
+                           left join user on mainpage.username = user.username
+        <where>
+            <if test="typeId !=null ">
+                mainpage.type_id = #{typeId}
+            </if>
+            <if test=" begin !=null and end !=null">
+                and mainpage.create_time between #{begin} and #{end}
+            </if>
+            <if test="uid !=null ">
+                and likeUserTable.user_id = #{uid}
+            </if>
+        </where>
+    </select>
 </mapper>
