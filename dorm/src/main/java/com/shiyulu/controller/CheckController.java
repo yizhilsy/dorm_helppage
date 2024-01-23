@@ -1,5 +1,6 @@
 package com.shiyulu.controller;
 
+import com.shiyulu.anno.RequireRole;
 import com.shiyulu.pojo.*;
 import com.shiyulu.service.CheckService;
 import com.shiyulu.service.StudentService;
@@ -14,6 +15,8 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import static com.shiyulu.utils.Constants.*;
 
 @Slf4j
 @RestController
@@ -73,6 +76,7 @@ public class CheckController {
 //        return Result.success(checkList);
 //    }
 
+    @RequireRole({MANAGER, DORM_SUPERVISOR})
     @PostMapping("/add")
     public ResultChen add (@RequestBody CheckReceived checkReceived) {
 
@@ -141,7 +145,7 @@ public class CheckController {
 //
 //    }
 
-
+    @RequireRole({MANAGER, STUDENT})
     @PostMapping("/appeal")
     public ResultChen appeal (@RequestBody Appeal appeal) {
 
@@ -169,7 +173,7 @@ public class CheckController {
 
         return ResultChen.success(pd);
     }
-
+    @RequireRole({MANAGER, DORM_SUPERVISOR})
     @PostMapping("/appeal/verifyYes")
     public ResultChen appealVerifyYes (@RequestBody Check check) {
         Check ck = checkService.findCheckById(check.getId());
@@ -183,7 +187,7 @@ public class CheckController {
         checkService.appealVerifyYes(check);
         return ResultChen.success();
     }
-
+    @RequireRole({MANAGER, DORM_SUPERVISOR})
     @PostMapping("/appeal/verifyNo")
     public ResultChen appealVerifyNo (@RequestBody Check check) {
         Check ck = checkService.findCheckById(check.getId());
@@ -228,12 +232,14 @@ public class CheckController {
         return ResultChen.success(pd);
     }
 
+    @RequireRole({MANAGER, DORM_SUPERVISOR})
     @GetMapping("/getStudentByDorm")
     public ResultChen<List<Student>> getStudentByDorm (@RequestParam String dormNumber) {
         List<Student> stuList = studentService.getStudentByDorm(dormNumber);
 
-        return ResultChen.success(stuList);
+        stuList.removeIf(student -> checkService.findCheckByTimeAndNumber(LocalDateTime.now(), student.getStudentNumber()) != null);
 
+        return ResultChen.success(stuList);
 
     }
 }

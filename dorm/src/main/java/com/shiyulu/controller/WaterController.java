@@ -1,6 +1,7 @@
 package com.shiyulu.controller;
 
 
+import com.shiyulu.anno.RequireRole;
 import com.shiyulu.pojo.*;
 import com.shiyulu.service.StudentService;
 import com.shiyulu.service.WaterService;
@@ -15,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static com.shiyulu.utils.Constants.*;
+
 @RestController
 @RequestMapping("/water")
 public class WaterController {
@@ -25,6 +28,7 @@ public class WaterController {
     @Autowired
     private StudentService studentService;
 
+    @RequireRole({MANAGER, STUDENT})
     @PostMapping("/order")
     public ResultChen<String> order (@RequestBody @Validated(WaterOrder.Add.class) WaterOrder waterOrder) throws NoSuchAlgorithmException {
 
@@ -53,6 +57,7 @@ public class WaterController {
         return ResultChen.success(WOlist);
     }
 
+    @RequireRole({MANAGER, WATER_STATION})
     @PostMapping("/changestate")
     public ResultChen changeState (@RequestBody @Validated(WaterOrder.Update.class) WaterOrder waterOrder) {
 
@@ -72,6 +77,7 @@ public class WaterController {
         return ResultChen.success();
     }
 
+    @RequireRole({MANAGER, STUDENT})
     @PostMapping("/cancel")
     public ResultChen cancel (@RequestBody @Validated(WaterOrder.Cancel.class) WaterOrder waterOrder) {
 
@@ -183,7 +189,7 @@ public class WaterController {
 
         return ResultChen.success();
     }
-
+    @RequireRole({MANAGER, STUDENT})
     @PostMapping("/pay")
     public ResultChen pay (@RequestBody WaterBill waterBill) {
 

@@ -84,5 +84,6 @@
                 </choose>
             </if>
         </where>
+        order by waterOrderTime desc
     </select>
 </mapper>
